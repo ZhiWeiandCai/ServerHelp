@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <provider
+            android:name=".provider.DatabaseHelpProvider"
+            android:authorities="com.xht.android.serverhelp.DatabaseHelpProvider"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">ServerHelp</string>
+    <string name="app_name">客服助手</string>
+    <string name="radio_group_1_sy">首页</string>
+    <string name="radio_group_1_txl">通讯录</string>
+    <string name="radio_group_1_my">我的</string>
+    <string name="bzz_str">办证中</string>
+    <string name="rwc_str">任务池</string>
+    <string name="yj_str">预警</string>
+    <string name="grjx_str">个人绩效</string>
+    <string name="bzzn_str">办证指南</string>
 </resources>

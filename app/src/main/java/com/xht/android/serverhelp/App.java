@@ -3,11 +3,8 @@ package com.xht.android.serverhelp;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -15,25 +12,14 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
-import com.umeng.message.PushAgent;
-import com.umeng.message.UTrack;
-import com.umeng.message.UmengMessageHandler;
-import com.umeng.message.UmengNotificationClickHandler;
-import com.umeng.message.entity.UMessage;
-import com.xht.android.companyhelp.ceche.LruCacheManager;
-import com.xht.android.companyhelp.model.Constants;
-import com.xht.android.companyhelp.model.MessageDetail;
-import com.xht.android.companyhelp.util.LogHelper;
-import com.xht.android.companyhelp.util.Utils;
+import com.xht.android.serverhelp.ceche.LruCacheManager;
+import com.xht.android.serverhelp.model.Constants;
+import com.xht.android.serverhelp.util.LogHelper;
+import com.xht.android.serverhelp.util.Utils;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Map;
 
 public class App extends Application {
 	
