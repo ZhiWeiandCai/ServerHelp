@@ -26,7 +26,7 @@ public class MainFragment extends Fragment implements View.OnClickListener{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_main, container, false);
-		view.findViewById(R.id.lLayout01).setOnClickListener(this);
+		view.findViewById(R.id.lLayout01).setOnClickListener(this);	//办证中view
 
 		return view;		
 	}
@@ -35,6 +35,7 @@ public class MainFragment extends Fragment implements View.OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.lLayout01:
+				mActivity.switchToActivity(BZListActivity.class, null, 0, false, false);
 				break;
 			case R.id.lLayout02:
 				break;

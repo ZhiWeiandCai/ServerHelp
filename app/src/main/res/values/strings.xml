@@ -8,4 +8,7 @@
     <string name="yj_str">预警</string>
     <string name="grjx_str">个人绩效</string>
     <string name="bzzn_str">办证指南</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
