@@ -6,7 +6,9 @@ public class Constants {
 	/*
 	 * 外部存储器的根目录
 	 */
-	public static final String ROOT_PATH_EXT = Environment.getExternalStorageDirectory() + "/CompanyHelp/";
+	public static final String ROOT_PATH_EXT = Environment.getExternalStorageDirectory() + "/ServerHelp/";
+	//办证步骤里，上传图片
+	public static final String BZ_PIC_PATH = ROOT_PATH_EXT + "bzbz/img";
 	/**
 	 * 屏幕分辨率（可用作填充内容的区域）
 	 */

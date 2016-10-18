@@ -25,7 +25,7 @@
             android:background="@drawable/radio_outline2_sel"
             android:button="@null"
             android:text="进度"
-            />
+            android:textSize="18sp"/>
         <RadioButton android:id="@+id/tab2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -34,7 +34,7 @@
             android:background="@drawable/radio_outline2_sel"
             android:button="@null"
             android:text="跟进"
-            />
+            android:textSize="18sp"/>
         <RadioButton android:id="@+id/tab3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -43,7 +43,7 @@
             android:background="@drawable/radio_outline2_sel"
             android:button="@null"
             android:text="详细"
-            />
+            android:textSize="18sp"/>
     </RadioGroup>
     <FrameLayout
         android:id="@+id/fragment_contain"

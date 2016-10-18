@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -17,10 +18,12 @@ public class RwxqActivity extends Activity {
     private Fragment mFragment1, mFragment2, mFragment3;
     private RadioButton mRBtn1, mRBtn2, mRBtn3;
     private RadioGroup rg;
+    public int mOrderId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mOrderId = getIntent().getIntExtra("ordId", 0);
         setContentView(R.layout.activity_rwxq);
         rg = (RadioGroup) findViewById(R.id.switch_tabs);
         mRBtn1 = (RadioButton) findViewById(R.id.tab1);
@@ -86,6 +89,18 @@ public class RwxqActivity extends Activity {
             ft.hide(mFragment3);
         }
         ft.commit();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 0) {
+                Fragment fragment = getFragmentManager().findFragmentByTag("f1");
+                if (fragment != null && fragment.isVisible()) {
+                    fragment.onActivityResult(requestCode, resultCode, intent);
+                }
+            }
+        }
     }
 
 }
