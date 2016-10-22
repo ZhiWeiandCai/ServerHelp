@@ -78,7 +78,7 @@ public class BZListActivity extends Activity {
                 startActivity(intent);
             }
         });
-        fetchItemTask(1);
+        fetchItemTask(2);
     }
 
     /**

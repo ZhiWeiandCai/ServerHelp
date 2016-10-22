@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RadioButton;
@@ -19,6 +20,7 @@ public class RwxqActivity extends Activity {
     private RadioButton mRBtn1, mRBtn2, mRBtn3;
     private RadioGroup rg;
     public int mOrderId;
+    private ProgressDialog mProgDoal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +102,28 @@ public class RwxqActivity extends Activity {
                     fragment.onActivityResult(requestCode, resultCode, intent);
                 }
             }
+        }
+    }
+
+    public void createProgressDialog(String title) {
+        if (mProgDoal == null) {
+            mProgDoal = new ProgressDialog(this);
+        }
+        mProgDoal.setTitle(title);
+        mProgDoal.setIndeterminate(true);
+        mProgDoal.setCancelable(false);
+        mProgDoal.show();
+    }
+
+    /**
+     * 隐藏mProgressDialog
+     */
+    public void dismissProgressDialog()
+    {
+        if(mProgDoal != null)
+        {
+            mProgDoal.dismiss();
+            mProgDoal = null;
         }
     }
 
