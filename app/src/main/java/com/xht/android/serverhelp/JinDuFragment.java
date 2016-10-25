@@ -21,8 +21,15 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.xht.android.serverhelp.model.Constants;
+import com.xht.android.serverhelp.model.ProsItem;
+import com.xht.android.serverhelp.net.APIListener;
 import com.xht.android.serverhelp.net.VolleyHelpApi;
 import com.xht.android.serverhelp.util.BitmapHelper;
+import com.xht.android.serverhelp.util.Utils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -30,6 +37,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 
 /**
@@ -53,6 +61,7 @@ public class JinDuFragment extends Fragment implements View.OnClickListener{
     private NetworkImageView mWjZpIV11, mWjZpIV12, mWjZpIV13, mJgZpIV11, mJgZpIV12, mJgZpIV13;
     //区域块1,2
     private RelativeLayout mPro1, mPro2;
+
     //提交更新进度后，出现的对任务进行的三个操作的Layout
     private LinearLayout mRwZzSel1, mRwZzSel2;
     private ChoosePicDialog mChoosePicDialog;
@@ -64,7 +73,9 @@ public class JinDuFragment extends Fragment implements View.OnClickListener{
     private boolean mShiFouJiangSCFlag; //是否必须要上传先
     private boolean mNotSelPic;  //不能选择图片吗？
     private int mWjNum11;   //文件照已经上传了多少张
+    private int mJgNum11;   //结果照已经上传了多少张
     private Uri mCurFromCamare;
+    private ArrayList<ProsItem> mProsItems = new ArrayList<>();
 
     public JinDuFragment() {
         // Required empty public constructor
@@ -164,7 +175,81 @@ public class JinDuFragment extends Fragment implements View.OnClickListener{
         mWjZpIV11.setOnClickListener(this);
         mWjZpIV12.setOnClickListener(this);
         mWjZpIV13.setOnClickListener(this);
+        mJgZpIV11.setOnClickListener(this);
+        mJgZpIV12.setOnClickListener(this);
+        mJgZpIV13.setOnClickListener(this);
+        //获取数据
+        getDataInit();
+
         return view;
+    }
+
+    private void getDataInit() {
+        VolleyHelpApi.getInstance().getBZProcs(((RwxqActivity) getActivity()).mOrderId, new APIListener() {
+            @Override
+            public void onResult(Object result) {
+                JSONObject tempJO;
+                JSONArray tempJA = (JSONArray) result;
+                ProsItem tempPI;
+                int lenghtJA = tempJA.length();
+                for (int i = 0; i < lenghtJA; i++) {
+                    try {
+                        tempJO = tempJA.getJSONObject(i);
+                        tempPI = new ProsItem();
+                        tempPI.setName(tempJO.optString("flowName"));
+                        tempPI.setStartTime(tempJO.optString("startTime"));
+                        tempPI.setEndTime(tempJO.optString("endTime"));
+                        mProsItems.add(tempPI);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (mProsItems.get(0).getName() != null) {
+                    mShmzTV1.setText(mProsItems.get(0).getName());
+                }
+                if (mProsItems.get(0).getStartTime() != null && !mProsItems.get(0).getStartTime().equals("null")) {
+                    mStartTimeTV1.setText(Utils.getTimeUtils(Long.parseLong(mProsItems.get(0).getStartTime())));
+                }
+                if (mProsItems.get(0).getEndTime() != null && !mProsItems.get(0).getEndTime().equals("null")) {
+                    mCompTimeTV1.setText(Utils.getTimeUtils(Long.parseLong(mProsItems.get(0).getEndTime())));
+                }
+                showBuZouNum(lenghtJA, 0, false);
+            }
+
+            @Override
+            public void onError(Object e) {
+                App.getInstance().showToast(e.toString());
+            }
+        });
+    }
+
+    /**
+     * 显示多少个步骤，显示更新进度还是显示进度更新中还是后
+     * @param num
+     * @param witch
+     * @param isSHZ 是否显示审核中
+     */
+    private void showBuZouNum(int num, int witch, boolean isSHZ) {
+        switch (num) {
+            case 1:
+                mPro2.setVisibility(View.GONE);
+
+                if (witch == 0) {
+                    mRefProTV1.setVisibility(View.VISIBLE);
+                    if (isSHZ) {
+                        mRefProTV1.setText("审核中");
+                    } else {
+                        mRefProTV1.setText("更新进度");
+                    }
+                } else {
+                    mRefProTV1.setVisibility(View.GONE);
+                    mRwZzSel1.setVisibility(View.VISIBLE);
+                }
+                break;
+            case 2:
+                break;
+        }
     }
 
     @Override
@@ -238,6 +323,15 @@ public class JinDuFragment extends Fragment implements View.OnClickListener{
                     return;
                 }
                 break;
+            case R.id.scjg_btn1:
+                if (mShiFouJiangSCFlag) {
+                    ((RwxqActivity) getActivity()).createProgressDialog("正在上传照片");
+                    new UploadPicTask().execute();
+                } else {
+                    App.getInstance().showToast("先选择照片");
+                    return;
+                }
+                break;
             case R.id.wjIV11:
                 if (mWjNum11 < 2) {
                     App.getInstance().showToast("请先上传前面的未上传的照片");
@@ -279,6 +373,60 @@ public class JinDuFragment extends Fragment implements View.OnClickListener{
                 }
                 mChoosePicDialog.show();
                 curIVSelPic = 13;
+                break;
+            case R.id.jgIV11:
+                if (mWjNum11 != 3) {
+                    App.getInstance().showToast("请先完成文件照的上传");
+                    return;
+                }
+                if (mJgNum11 < 2) {
+                    App.getInstance().showToast("请先上传前面的未上传的照片");
+                    return;
+                } else if (mJgNum11 > 2) {
+                    App.getInstance().showToast("此照片已上传");
+                    return;
+                }
+
+                if (mChoosePicDialog == null) {
+                    mChoosePicDialog = new ChoosePicDialog(getActivity(), this);
+                }
+                mChoosePicDialog.show();
+                curIVSelPic = 16;
+                break;
+            case R.id.jgIV12:
+                if (mWjNum11 != 3) {
+                    App.getInstance().showToast("请先完成文件照的上传");
+                    return;
+                }
+                if (mWjNum11 < 1) {
+                    App.getInstance().showToast("请先上传上一张照片");
+                    return;
+                } else if (mWjNum11 > 1) {
+                    App.getInstance().showToast("此照片已上传");
+                    return;
+                }
+
+                if (mChoosePicDialog == null) {
+                    mChoosePicDialog = new ChoosePicDialog(getActivity(), this);
+                }
+                mChoosePicDialog.show();
+                curIVSelPic = 15;
+                break;
+            case R.id.jgIV13:
+                if (mWjNum11 != 3) {
+                    App.getInstance().showToast("请先完成文件照的上传");
+                    return;
+                }
+                if (mWjNum11 > 0) {
+                    App.getInstance().showToast("此照片已上传");
+                    return;
+                }
+
+                if (mChoosePicDialog == null) {
+                    mChoosePicDialog = new ChoosePicDialog(getActivity(), this);
+                }
+                mChoosePicDialog.show();
+                curIVSelPic = 14;
                 break;
             //相册
             case R.id.goToAlbum:

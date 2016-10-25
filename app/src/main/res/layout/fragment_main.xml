@@ -23,7 +23,9 @@
                     android:layout_height="35dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="15dp"
-                    android:layout_marginBottom="8dp"/>
+                    android:text="4"
+                    android:gravity="center"
+                    />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -47,9 +49,11 @@
                     android:id="@+id/rwcNum"
                     android:layout_width="50dp"
                     android:layout_height="35dp"
+                    android:text="24"
+                    android:gravity="center"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="15dp"
-                    android:layout_marginBottom="8dp"
+                    
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -64,6 +68,8 @@
         </TableRow>
         <View android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@color/colorGray2"/>
         <TableRow>
             <LinearLayout
@@ -77,9 +83,11 @@
                     android:id="@+id/yjNum"
                     android:layout_width="50dp"
                     android:layout_height="35dp"
+                    android:text="6"
+                    android:gravity="center"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="15dp"
-                    android:layout_marginBottom="8dp"
+                    
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -103,16 +111,18 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/grjx_str"
                     android:padding="8dip"
                     android:textSize="18sp"
-                    />
+                    android:id="@+id/textView" />
             </LinearLayout>
         </TableRow>
         <View android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@color/colorGray2"/>
         <TableRow>
             <LinearLayout
@@ -125,7 +135,7 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/bzzn_str"
                     android:padding="8dip"

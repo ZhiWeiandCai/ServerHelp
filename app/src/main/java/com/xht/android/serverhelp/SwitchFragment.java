@@ -35,7 +35,7 @@ public class SwitchFragment extends Fragment {
 	            mFragment2 = new TxlFragment();
 	            ft.add(R.id.contain1, mFragment2, "f2");
 	        }
-	        mFragment3 = fm.findFragmentByTag("f4");
+	        mFragment3 = fm.findFragmentByTag("f3");
 	        if (mFragment3 == null) {
 	            mFragment3 = new MyFragment();
 	            ft.add(R.id.contain1, mFragment3, "f3");

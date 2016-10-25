@@ -114,9 +114,9 @@ public class BZListActivity extends Activity {
                 jO = result.getJSONObject(i);
                 name = "" + jO.getInt("flowId");
                 bZItem = new BZItem(name);
-                bZItem.setTime(jO.getString("robOrdTime"));
+                bZItem.setTime(jO.optString("robOrderTime"));
                 bZItem.setKehu(jO.getString("contactName"));
-                bZItem.setComp(jO.getString("compName"));
+                bZItem.setComp(jO.getString("companyName"));
                 bZItem.setCompArea(jO.getString("countyName"));
                 bZItem.setOrdId(jO.getInt("orderId"));
                 mBZItems.add(bZItem);
@@ -161,7 +161,7 @@ public class BZListActivity extends Activity {
             }
             BZItem item = getItem(position);
             holder.nameTV.setText("数据待完善-->" + item.getName());
-            holder.timeTV.setText(item.getTime());
+            holder.timeTV.setText("数据待完善-->" + item.getTime());
             holder.kehuTV.setText(item.getKehu());
             holder.compTV.setText(item.getComp());
             holder.areaTV.setText(item.getCompArea());

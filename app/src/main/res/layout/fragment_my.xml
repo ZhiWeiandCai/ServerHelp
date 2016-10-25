@@ -3,13 +3,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <TextView
+    <LinearLayout
+        android:id="@+id/fragm_my_ll1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:text="我的---界面"
-        android:textColor="@android:color/holo_blue_dark"
-        />
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/white">
+        <ImageView android:id="@+id/head_img"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="12dp"
+            android:layout_gravity="center_vertical"
+            android:background="@mipmap/p_head"/>
+        <LinearLayout android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp">
+            <TextView android:id="@+id/aName"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                />
+            <TextView android:id="@+id/aPhoneNum"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:drawableLeft="@mipmap/phone_sym_img"
+                android:drawablePadding="3dp"
+                android:gravity="center_vertical"/>
+        </LinearLayout>
+        <ImageView android:id="@+id/erweima"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="12dp"
+            />
+        <!--android:background="@mipmap/erweima_pic"-->
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/fragm_my_ll2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+        <TextView
+            android:id="@+id/change_mima"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+        android:gravity="center_vertical"
+            android:text="修改密码"
+            android:textSize="18sp"
+
+            />
+
+    </LinearLayout>
+
 </LinearLayout>
